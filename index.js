@@ -263,10 +263,7 @@ app.get('/recherche', (req, res) => {
 });
 
 // Servir les fichiers statiques
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, 'style.css'));
-});
+// Aucun besoin de servir des fichiers statiques si tout est intégré
 
 // Root route for basic info
 app.get('/', (req, res) => {
@@ -278,7 +275,88 @@ app.get('/', (req, res) => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>API Baiboly-json</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="/style.css">
+      <style>
+        body {
+          font-family: 'Roboto', sans-serif;
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+          color: white;
+          line-height: 1.6;
+          min-height: 100vh;
+        }
+
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 2rem;
+        }
+
+        h1 {
+          text-align: center;
+          font-size: 3rem;
+          margin-bottom: 2rem;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .description {
+          text-align: center;
+          margin-bottom: 3rem;
+          font-size: 1.2rem;
+        }
+
+        .button-container {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .api-button {
+          background: rgba(255, 255, 255, 0.2);
+          border: none;
+          padding: 1rem;
+          border-radius: 10px;
+          color: white;
+          font-size: 1.1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          text-align: left;
+        }
+
+        .api-button:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .api-button code {
+          display: block;
+          margin-top: 0.5rem;
+          background: rgba(0, 0, 0, 0.2);
+          padding: 0.5rem;
+          border-radius: 5px;
+          overflow-wrap: break-word;
+        }
+
+        .footer {
+          text-align: center;
+          margin-top: 2rem;
+          opacity: 0.7;
+          font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+          .container {
+            padding: 1rem;
+          }
+          
+          h1 {
+            font-size: 2.5rem;
+          }
+        }
+      </style>
     </head>
     <body>
       <div class="container">
