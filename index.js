@@ -8,12 +8,13 @@ const PORT = 3000;
 // Route to get book titles from Testameta
 app.get('/titre', (req, res) => {
   const baiboly = req.query.baiboly;
+  console.log("Paramètre baiboly reçu:", baiboly);
 
   // Normalize directory name (case insensitive)
   let dirPath;
-  if (baiboly && baiboly.toLowerCase().includes('testametavaovao')) {
+  if (baiboly && decodeURIComponent(baiboly).toLowerCase().includes('vaovao')) {
     dirPath = 'testametavaovao';
-  } else if (baiboly && baiboly.toLowerCase().includes('testametataloha')) {
+  } else if (baiboly && decodeURIComponent(baiboly).toLowerCase().includes('taloha')) {
     dirPath = 'testametataloha';
   } else {
     return res.status(400).json({ error: 'Paramètre baiboly requis (testameta vaovao ou testameta taloha)' });
