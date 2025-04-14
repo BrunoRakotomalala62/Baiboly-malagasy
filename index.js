@@ -11,9 +11,9 @@ app.get('/titre', (req, res) => {
 
   // Normalize directory name (case insensitive)
   let dirPath;
-  if (baiboly && baiboly.toLowerCase().includes('vaovao')) {
+  if (baiboly && baiboly.toLowerCase().includes('testametavaovao')) {
     dirPath = 'testametavaovao';
-  } else if (baiboly && baiboly.toLowerCase().includes('taloha')) {
+  } else if (baiboly && baiboly.toLowerCase().includes('testametataloha')) {
     dirPath = 'testametataloha';
   } else {
     return res.status(400).json({ error: 'Paramètre baiboly requis (testameta vaovao ou testameta taloha)' });
