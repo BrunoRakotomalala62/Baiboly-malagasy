@@ -303,11 +303,6 @@ app.get('/', (req, res) => {
             <code>/livre?livre=amosa&chapitre=1&verset=2&hatraminy=5</code>
           </button>
           
-          <button class="api-button" onclick="window.location.href='/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5'">
-            Autre format: Toko - Amosa 1:2-5
-            <code>/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5</code>
-          </button>
-          
           <button class="api-button" onclick="window.location.href='/recherche?livre=amosa'">
             Recherche Complète: Amosa
             <code>/recherche?livre=amosa</code>
