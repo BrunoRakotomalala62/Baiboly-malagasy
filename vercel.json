@@ -5,9 +5,25 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "Testameta taloha/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "Testameta vaovao/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/Testameta taloha/(.*)",
+      "dest": "/Testameta taloha/$1"
+    },
+    {
+      "src": "/Testameta vaovao/(.*)",
+      "dest": "/Testameta vaovao/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/index.js"
