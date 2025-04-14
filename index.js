@@ -223,6 +223,45 @@ app.get('/livre', (req, res) => {
   }
 });
 
+// Route pour rechercher et afficher le contenu complet d'un livre
+app.get('/recherche', (req, res) => {
+  const livre = req.query.livre;
+  
+  if (!livre) {
+    return res.status(400).json({ error: 'Paramètre livre est requis' });
+  }
+  
+  const bookName = livre.toLowerCase();
+  let dirPath;
+  let bookData;
+  
+  try {
+    // Vérifier d'abord dans l'Ancien Testament (Testameta taloha)
+    if (fs.existsSync(`Testameta taloha/${bookName}.json`)) {
+      dirPath = 'Testameta taloha';
+      bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+    } 
+    // Puis vérifier dans le Nouveau Testament (Testameta vaovao)
+    else if (fs.existsSync(`Testameta vaovao/${bookName}.json`)) {
+      dirPath = 'Testameta vaovao';
+      bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+    } 
+    else {
+      return res.status(404).json({ error: `Livre "${livre}" non trouvé` });
+    }
+    
+    // Retourner le livre entier
+    return res.json({
+      livre: livre,
+      testament: dirPath,
+      contenu: bookData
+    });
+  } catch (error) {
+    console.error(`Erreur lors de la lecture du livre ${livre}:`, error);
+    res.status(500).json({ error: `Impossible de lire le livre ${livre}` });
+  }
+});
+
 // Servir les fichiers statiques
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/style.css', (req, res) => {
@@ -267,6 +306,11 @@ app.get('/', (req, res) => {
           <button class="api-button" onclick="window.location.href='/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5'">
             Autre format: Toko - Amosa 1:2-5
             <code>/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5</code>
+          </button>
+          
+          <button class="api-button" onclick="window.location.href='/recherche?livre=amosa'">
+            Recherche Complète: Amosa
+            <code>/recherche?livre=amosa</code>
           </button>
         </div>
         
