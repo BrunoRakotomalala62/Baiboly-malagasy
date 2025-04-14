@@ -4,25 +4,9 @@
     {
       "src": "index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "testametataloha/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "testametavaovao/**",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    {
-      "src": "/testametataloha/(.*)",
-      "dest": "/testametataloha/$1"
-    },
-    {
-      "src": "/testametavaovao/(.*)",
-      "dest": "/testametavaovao/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "/index.js"

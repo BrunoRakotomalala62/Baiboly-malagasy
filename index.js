@@ -26,9 +26,11 @@ app.get('/titre', (req, res) => {
   }
 
   try {
-    console.log(`Tentative de lecture du répertoire: ${dirPath}`);
+    // Tentative de lecture du répertoire
+    const absoluteDirPath = path.join(__dirname, dirPath);
+    console.log(`Tentative de lecture du répertoire: ${absoluteDirPath}`);
     // Read the directory
-    const files = fs.readdirSync(dirPath);
+    const files = fs.readdirSync(absoluteDirPath);
 
     // Filter only JSON files and remove the .json extension
     const bookTitles = files
@@ -72,11 +74,11 @@ app.get('/toko', (req, res) => {
 
   try {
     // Vérifier d'abord dans l'Ancien Testament (testametataloha)
-    if (fs.existsSync(`testametataloha/${bookName}.json`)) {
+    if (fs.existsSync(path.join(__dirname, `testametataloha/${bookName}.json`))) {
       dirPath = 'testametataloha';
     } 
     // Puis vérifier dans le Nouveau Testament (testametavaovao)
-    else if (fs.existsSync(`testametavaovao/${bookName}.json`)) {
+    else if (fs.existsSync(path.join(__dirname, `testametavaovao/${bookName}.json`))) {
       dirPath = 'testametavaovao';
     } 
     else {
@@ -84,7 +86,9 @@ app.get('/toko', (req, res) => {
     }
 
     // Lire le fichier du livre
-    const bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+    const bookPath = path.join(__dirname, `${dirPath}/${bookName}.json`);
+    console.log(`Lecture du fichier: ${bookPath}`);
+    const bookData = JSON.parse(fs.readFileSync(bookPath, 'utf8'));
 
     // Vérifier si le chapitre existe
     if (!bookData[toko]) {
@@ -153,11 +157,11 @@ app.get('/livre', (req, res) => {
 
   try {
     // Vérifier d'abord dans l'Ancien Testament (testametataloha)
-    if (fs.existsSync(`testametataloha/${bookName}.json`)) {
+    if (fs.existsSync(path.join(__dirname, `testametataloha/${bookName}.json`))) {
       dirPath = 'testametataloha';
     } 
     // Puis vérifier dans le Nouveau Testament (testametavaovao)
-    else if (fs.existsSync(`testametavaovao/${bookName}.json`)) {
+    else if (fs.existsSync(path.join(__dirname, `testametavaovao/${bookName}.json`))) {
       dirPath = 'testametavaovao';
     } 
     else {
@@ -165,7 +169,9 @@ app.get('/livre', (req, res) => {
     }
 
     // Lire le fichier du livre
-    const bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+    const bookPath = path.join(__dirname, `${dirPath}/${bookName}.json`);
+    console.log(`Lecture du fichier: ${bookPath}`);
+    const bookData = JSON.parse(fs.readFileSync(bookPath, 'utf8'));
 
     // Vérifier si le chapitre existe
     if (!bookData[chapitre]) {
@@ -243,14 +249,18 @@ app.get('/recherche', (req, res) => {
 
   try {
     // Vérifier d'abord dans l'Ancien Testament (testametataloha)
-    if (fs.existsSync(`testametataloha/${bookName}.json`)) {
+    if (fs.existsSync(path.join(__dirname, `testametataloha/${bookName}.json`))) {
       dirPath = 'testametataloha';
-      bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+      const bookPath = path.join(__dirname, `${dirPath}/${bookName}.json`);
+      console.log(`Lecture du fichier: ${bookPath}`);
+      bookData = JSON.parse(fs.readFileSync(bookPath, 'utf8'));
     } 
     // Puis vérifier dans le Nouveau Testament (testametavaovao)
-    else if (fs.existsSync(`testametavaovao/${bookName}.json`)) {
+    else if (fs.existsSync(path.join(__dirname, `testametavaovao/${bookName}.json`))) {
       dirPath = 'testametavaovao';
-      bookData = JSON.parse(fs.readFileSync(`${dirPath}/${bookName}.json`, 'utf8'));
+      const bookPath = path.join(__dirname, `${dirPath}/${bookName}.json`);
+      console.log(`Lecture du fichier: ${bookPath}`);
+      bookData = JSON.parse(fs.readFileSync(bookPath, 'utf8'));
     } 
     else {
       return res.status(404).json({ error: `Livre "${livre}" non trouvé` });
