@@ -223,12 +223,59 @@ app.get('/livre', (req, res) => {
   }
 });
 
+// Servir les fichiers statiques
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'style.css'));
+});
+
 // Root route for basic info
 app.get('/', (req, res) => {
   res.send(`
-    <h1>API Baiboly-json</h1>
-    <p>Utilisez <code>/titre?baiboly=testameta vaovao</code> ou <code>/titre?baiboly=testameta taloha</code> pour obtenir la liste des livres.</p>
-    <p>Utilisez <code>/livre?livre=amosa&chapitre=1&verset=2&hatraminy=5</code> pour obtenir un intervalle de versets.</p>
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>API Baiboly-json</title>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+      <div class="container">
+        <h1>API Baiboly-json</h1>
+        <div class="description">
+          <p>Bienvenue sur l'API Baiboly-json. Utilisez les boutons ci-dessous pour accéder aux différentes routes.</p>
+        </div>
+        
+        <div class="button-container">
+          <button class="api-button" onclick="window.location.href='/titre?baiboly=testameta vaovao'">
+            Testameta Vaovao - Liste des Livres
+            <code>/titre?baiboly=testameta vaovao</code>
+          </button>
+          
+          <button class="api-button" onclick="window.location.href='/titre?baiboly=testameta taloha'">
+            Testameta Taloha - Liste des Livres
+            <code>/titre?baiboly=testameta taloha</code>
+          </button>
+          
+          <button class="api-button" onclick="window.location.href='/livre?livre=amosa&chapitre=1&verset=2&hatraminy=5'">
+            Exemple de Versets: Amosa 1:2-5
+            <code>/livre?livre=amosa&chapitre=1&verset=2&hatraminy=5</code>
+          </button>
+          
+          <button class="api-button" onclick="window.location.href='/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5'">
+            Autre format: Toko - Amosa 1:2-5
+            <code>/toko?andininy=amosa&toko=1&andininy=2&hatraminy=5</code>
+          </button>
+        </div>
+        
+        <div class="footer">
+          &copy; 2023 API Baiboly-json - Tous droits réservés
+        </div>
+      </div>
+    </body>
+    </html>
   `);
 });
 
