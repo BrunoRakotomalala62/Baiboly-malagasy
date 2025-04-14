@@ -7,22 +7,22 @@
       "use": "@vercel/node"
     },
     {
-      "src": "Testameta taloha/**",
+      "src": "testametataloha/**",
       "use": "@vercel/static"
     },
     {
-      "src": "Testameta vaovao/**",
+      "src": "testametavaovao/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/Testameta taloha/(.*)",
-      "dest": "/Testameta taloha/$1"
+      "src": "/testametataloha/(.*)",
+      "dest": "/testametataloha/$1"
     },
     {
-      "src": "/Testameta vaovao/(.*)",
-      "dest": "/Testameta vaovao/$1"
+      "src": "/testametavaovao/(.*)",
+      "dest": "/testametavaovao/$1"
     },
     {
       "src": "/(.*)",
