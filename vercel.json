@@ -1,4 +1,3 @@
-
 {
   "version": 2,
   "builds": [
@@ -28,5 +27,8 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
