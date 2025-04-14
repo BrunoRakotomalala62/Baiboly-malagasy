@@ -19,7 +19,13 @@ app.get('/titre', (req, res) => {
     return res.status(400).json({ error: 'Paramètre baiboly requis (testameta vaovao ou testameta taloha)' });
   }
 
+  // Vérifier si le répertoire existe
+  if (!fs.existsSync(dirPath)) {
+    return res.status(500).json({ error: `Répertoire ${dirPath} non trouvé` });
+  }
+
   try {
+    console.log(`Tentative de lecture du répertoire: ${dirPath}`);
     // Read the directory
     const files = fs.readdirSync(dirPath);
 
